@@ -4,26 +4,20 @@ Documentation=https://github.com/SiliconCentric/Vela-Client
 After=network-online.target
 Wants=network-online.target
 StartLimitIntervalSec=60
-StartLimitBurst=5
-
-[Service]
+StartLimitBurst=5 [Service]
 Type=simple
 User=vela
 Group=vela
 WorkingDirectory=/var/lib/vela
 # Starts BOTH listeners:
-#   - ClientService (stream path → Server, default port 50051)
-#   - HalService    (SDK/E2E path,          default port 50052)
+# - ClientService (stream path → Server, default port 50051)
+# - HalService (SDK/E2E path, default port 50052)
 ExecStart=/usr/bin/vela-client
 Restart=on-failure
-RestartSec=5
-
-# Logging
+RestartSec=5 # Logging
 StandardOutput=journal
 StandardError=journal
-SyslogIdentifier=vela-client
-
-# Hardening
+SyslogIdentifier=vela-client # Hardening
 NoNewPrivileges=yes
 ProtectSystem=full
 PrivateTmp=yes
@@ -31,7 +25,5 @@ ReadWritePaths=/var/lib/vela
 ProtectHome=yes
 ProtectKernelTunables=yes
 ProtectKernelModules=yes
-ProtectControlGroups=yes
-
-[Install]
+ProtectControlGroups=yes [Install]
 WantedBy=multi-user.target
