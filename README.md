@@ -1,3 +1,51 @@
+## Project Summary
+
+Vela-Client is the embedded C++17 daemon that orchestrates hardware-validation
+tests and streams results to Vela-Server. The source tree contains application,
+configuration, diagnostic, HAL bridge, HAL service, and janitor components; the
+checked-in protobuf contracts define client, common, HAL, and module messages.
+The existing documentation also describes a module registry with 35+ adapters,
+SQLite durable result/log spooling, bidirectional gRPC transport, a Python SDK
+HalService endpoint, log collection, and a Unix diagnostic socket. CMake,
+Makefile, Docker, sample configuration, and systemd artifacts provide build and
+deployment surfaces. The source inventory supports those component claims, but
+hardware behavior and full runtime integration remain environment-dependent.
+
+The repository also includes sample configuration, a systemd unit, Docker
+cross-compilation support, generated service contracts, and focused GoogleTest
+targets. These artifacts make the client operationally shaped, but they do not
+prove that the server is reachable, the local port is secured, or that every
+adapter can access its target device. The documented spool, replay, retry, and
+heartbeat paths should be exercised with an unavailable server and then a
+recovered server. Hardware-module claims should be checked on the exact Vela
+board because source-level adapter presence is not equivalent to a passing
+device test. Configuration defaults, service permissions, spool capacity, and
+TLS settings should likewise be reviewed for the deployment image. The status
+table intentionally records those distinctions and keeps manual acceptance
+separate from automated test evidence.
+
+## Feature Status
+
+| # | Name / Description | Implemented? | Test Coverage? | Manual Test |
+|---:|---|---|---|---|
+| 1 | C++17 CMake/Make build | Implemented | Build/test targets documented; execution not verified | [ ] Manual verification required |
+| 2 | Test orchestration and module registry | Implemented | `test_run_orchestrator` documented; depth unknown | [ ] Manual verification required |
+| 3 | 35+ hardware module adapters | Implemented | Adapter-wide coverage unknown | [ ] Manual verification required |
+| 4 | Stub adapter for unavailable modules | Implemented | Result behavior coverage unknown | [ ] Manual verification required |
+| 5 | HAL result serialization | Implemented | `test_result_serializer` documented | [ ] Manual verification required |
+| 6 | SQLite durable spool and replay | Implemented | Spool integration coverage unknown | [ ] Manual verification required |
+| 7 | Bidirectional server stream, reconnect, and heartbeat | Implemented | End-to-end coverage unknown | [ ] Manual verification required |
+| 8 | Python SDK HalService endpoint | Implemented | Integration coverage unknown | [ ] Manual verification required |
+| 9 | Log collection and forwarding | Implemented | No dedicated coverage identified | [ ] Manual verification required |
+| 10 | Local diagnostic socket and janitor cleanup | Partial | No dedicated coverage identified | [ ] Manual verification required |
+| 11 | Native, Docker, and systemd deployment | Partial | Build/deployment execution not verified | [ ] Manual verification required |
+
+## Useful Validation
+
+Use `make configure`, `make build`, and `ctest --test-dir build/native
+--output-on-failure`; the documented focused binaries are
+`test_result_serializer` and `test_run_orchestrator`. Docker and systemd
+procedures are described in the existing sections above.
 # Vela-Client > **gRPC-based daemon for IV&V (Independent Verification & Validation) hardware testing on embedded Linux platforms** Vela-Client is a C++17 daemon that orchestrates hardware validation tests, collects results, and streams them to an Vela-Server instance. It manages test execution, durable result storage, log collection, and provides gRPC endpoints for both server communication and SDK integration. --- ## Table of Contents - [Overview](#overview)
 - [Architecture](#architecture)
 - [System Requirements](#system-requirements)
