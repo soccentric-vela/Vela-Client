@@ -1,3 +1,5 @@
+## Overview
+
 ## Project Summary
 
 Vela-Client is the embedded C++17 daemon that orchestrates hardware-validation
