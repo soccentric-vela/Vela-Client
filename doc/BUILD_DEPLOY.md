@@ -14,7 +14,7 @@ device. The root `Makefile` is the authoritative entry point.
   Threads development packages; GoogleTest is required for tests.
 - A sibling checkout at `../Vela-HAL` for the HAL library and `.proto` files.
 - Docker/buildx for ARM64 builds; `sshpass`, SSH access, and a reachable target
-  are required for deployment. The Makefile defaults to `nvidia`/`nvidia` and
+  are required for deployment. The Makefile defaults to user `root` (key-based SSH) and
   `192.168.1.3`/`192.168.1.13`; override these rather than storing credentials.
 
 ## 2. Setup
